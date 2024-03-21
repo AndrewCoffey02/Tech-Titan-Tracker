@@ -7,8 +7,8 @@
 <script>
     // set the dimensions and margins of the graph
     var margin = { top: 10, right: 30, bottom: 30, left: 40 },
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 1000 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#histogram")
@@ -54,8 +54,8 @@
             .attr("x", 1)
             .attr("transform", function (d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
             .attr("width", function (d) { return x(d.x1) - x(d.x0) - 1; })
-            .transition().delay(function (d, i) { return i * 100 })
-            .duration(2000)
+            .transition().delay(function (d, i) { return i * 59 })
+            .duration(1000)
             .attr("height", function (d) { return height - y(d.length); })
             .style("fill", function(d){ if(d.x0<140){return "orange"} else {return "#69b3a2"}})
 
