@@ -11,7 +11,7 @@ const apiKey = {
   url: 'https://real-time-finance-data.p.rapidapi.com/company-income-statement',
   params: {
     symbol: 'AAPL:NASDAQ',
-    period: 'ANNUAL',
+    period: 'QUARTERLY',
     language: 'en'
   },
   headers: {
