@@ -22,6 +22,10 @@ Client.on('error', (error) => {
     await Client.connect();
 })();
 
+app.get('/', (req, res) => {
+    res.send("Redis server is ready!")
+})
+
 //request what port for database to listen to 
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
