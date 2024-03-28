@@ -11,7 +11,9 @@ export default class BarChart extends Component {
         drawBarChart(this.props)
     }
 
-    render() {return(
-        <div id="histogram"></div>
-        )}
+    render() {
+        return(
+            <div id="histogram"></div>
+        )
+    }
 }
