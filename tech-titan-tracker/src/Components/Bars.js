@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-class Bars extends Component {
+    const drawBarChart = (props) => {
 
-    componentDidMount() {
-        const data = d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv");
-        this.drawBarChart(data)
-    }
-    drawBarChart(data) {
+        const data = props.data;
 
         // set the dimensions and margins of the graph
-        var margin = { top: 10, right: 30, bottom: 30, left: 40 },
-            width = 460 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+        var margin = { top: 10, right: 30, bottom: 30, left: 40 }
+        const width = props.width - margin.left - margin.right;
+        const height = props.height - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         var svg = d3.select("#histogram")
@@ -22,6 +17,10 @@ class Bars extends Component {
             .append("g")
             .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
+
+        data.forEach(function(d) {
+            d.net_income = +d.net_income;
+        })
 
         // X axis: scale and draw:
         var x = d3.scaleLinear()
@@ -58,7 +57,5 @@ class Bars extends Component {
             .attr("height", function (d) { return height - y(d.length); })
             .style("fill", "#69b3a2")
     }
-    
-    render() { return <div id="histogram"></div> }
-}
-export default Bars
+
+export default drawBarChart
