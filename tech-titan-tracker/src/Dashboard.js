@@ -1,24 +1,11 @@
-import Component from 'react';
-import BarChart from './Views/BarChart-View/index.js'
+import BarChart from './Components/BarChart/BarView.js'
+// import { BrowserRouter, Routes, Route} from 'react-router-dom' 
 
-export default class Dashboard extends Component {
+export default function Dashboard() {
 
-    //return the api request
-    // constructor(props) {
-    //     this.state = {
-
-    //     }
-    // }
-
-    render(){
-
-    return (
-        <div>
-            <BarChart/>
-        </div>
-    )
-    }   
-
-
-
+        return (
+            <div>
+                <BarChart/>
+            </div>
+        ) 
 }

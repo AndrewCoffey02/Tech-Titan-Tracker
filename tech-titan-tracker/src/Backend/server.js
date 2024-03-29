@@ -30,7 +30,7 @@ const findRequestKey = async (Search, type) => {
         cacheEntry = JSON.parse(cacheEntry)
 
         //return that entry
-        return {...cacheEntry, 'source' : 'cache'}
+        return ({...cacheEntry, 'source' : 'cache'})
     }
 
     //if we have a miss
@@ -38,7 +38,7 @@ const findRequestKey = async (Search, type) => {
     let response = await axios.request(endPointKey(Search, type))
     redis.set(`${Search}`, JSON.stringify(response.data))
     //return response
-    return {...response.data, 'source' : 'API' }
+    return ({...response.data, 'source' : 'API' })
 
 }
 

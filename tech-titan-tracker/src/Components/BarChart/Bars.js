@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const drawBarChart = (props) => {
 
-    const data = _.cloneDeep(props.data.income_statement)
+    const data = _.cloneDeep(props.data.data.income_statement)
 
     // set the dimensions and margins of the graph
     var margin = { top: 10, right: 30, bottom: 30, left: 40 }
@@ -58,6 +58,11 @@ const drawBarChart = (props) => {
         .attr("width", function (d) { return x(d.x1) - x(d.x0) - 1; })
         .attr("height", function (d) { return height - y(d.length); })
         .style("fill", "#69b3a2")
+
+    return (
+        <div id='#histogram'></div>
+    )
 }
+
 
 export default drawBarChart
