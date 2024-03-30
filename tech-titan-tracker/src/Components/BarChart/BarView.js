@@ -1,24 +1,27 @@
-import { useState } from "react";
-import drawBarChart from './Bars.js'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Bars from './Bars.js'
 
 export default function BarView() {
     
 
         const [data, setData] = useState([])
-        
-        axios.get('/api')
-        .then((res) => {
-            setData(res.data)
+
+        useEffect(() => { 
+
+            axios.get('http://localhost:4000/api')
+            .then((res) => {
+                setData(res.json.data)
+            })
+            .catch((error) => {console.error(error)})
+
         })
-        .catch((err) => {console.error(err)})
+        
 
         return (
             <div id='view5' className='pane'>
-                <div className='header'>Age</div>
-                <div style={{ overflowX: 'scroll',overflowY:'hidden' }}>
-                <drawBarChart data={data} width={1000} height={550}/>
-                </div>                
+                <div className='header'>BarChart</div>
+            <Bars data={data}></Bars>
             </div>
         )
 }
