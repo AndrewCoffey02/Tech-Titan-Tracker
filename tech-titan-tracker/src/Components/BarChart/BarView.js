@@ -4,11 +4,15 @@ import Bars from './Bars'
 
 export default function BarView() {
 
+    const [data, getData] = useState([]) 
+
     const getIncome = () => {
+    
 
         axios.get('http://localhost:4000/api')
             .then((res) => {
-                console.log(res.data.data.income_statement)
+                getData(res.data.data.income_statement)
+                console.log(data)
             })
             .catch((error) => { console.error(error) })
 
@@ -17,6 +21,7 @@ export default function BarView() {
     return (
         <div>
             <button onClick={getIncome}>income</button>
+            
         </div>
     )
 }
