@@ -1,27 +1,22 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Bars from './Bars.js'
+import Bars from './Bars'
 
 export default function BarView() {
-    
 
-        const [data, setData] = useState([])
+    const getIncome = () => {
 
-        useEffect(() => { 
-
-            axios.get('http://localhost:4000/api')
+        axios.get('http://localhost:4000/api')
             .then((res) => {
-                setData(res.json.data)
+                console.log(res.data.data.income_statement)
             })
-            .catch((error) => {console.error(error)})
+            .catch((error) => { console.error(error) })
 
-        })
-        
+    }
 
-        return (
-            <div id='view5' className='pane'>
-                <div className='header'>BarChart</div>
-            <Bars data={data}></Bars>
-            </div>
-        )
+    return (
+        <div>
+            <button onClick={getIncome}>income</button>
+        </div>
+    )
 }
