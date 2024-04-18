@@ -1,25 +1,48 @@
 import BarChart from './Components/BarChart/BarView'
 import { Layout } from 'antd'
+import { Flex } from 'antd'
 // import { BrowserRouter, Routes, Route} from 'react-router-dom' 
 
-const { Sider, Header, Content } = Layout
+const {  Sider, Header, Content } = Layout
+
+const boxStyle = {
+    width: '100%',
+    height: '30%',
+    borderRadius: 30,
+    border: '3px solid #86d1ae',
+    backgroundColor: '#311152'
+  };
 
 export default function Dashboard() {
 
     return (
         <div>
-            <Layout style={{ height: 920 }}>
-                <Sider width={300} style={{ backgroundColor: 'steel-blue' }}>
-                    <Content style={{ height: 200 }}><h1 align="center">Profile</h1></Content>
-                    <Content style={{ height: 300 }}><h1 align="center">PieChart</h1></Content>
-                    <Content style={{ height: 400 }}><h1 align="center">Options</h1></Content>
+            <Flex>
+            <Layout style={{ height:'900px', border: '1px solid #40a9ff'}}>
+                <Sider width="20%">
+                    <Content align="center" style={boxStyle}>
+                        <h1>Profile</h1>
+                    </Content>
+                    <Content align="center" style={boxStyle}>
+                        <h1>PieChart</h1>
+                    </Content>
+                    <Content align="center" style={boxStyle}>
+                        <h1>Options</h1>
+                    </Content>
                 </Sider>
                 <Layout>
-                    <Content style={{ height: 100 }}><h1 align="center">LineChart</h1></Content>
-                    <Content style={{ height: 200 }}><h1 align="center">BarChart</h1></Content>
-                    <Content style={{ height: 200 }}><h1 align="center">Info</h1></Content>
+                    <Content align="center" style={boxStyle}>
+                        <h1>LineChart</h1>
+                    </Content>
+                    <Content align="center" style={boxStyle}>
+                        <h1>BarChart</h1>
+                    </Content>
+                    <Content align="center" style={boxStyle}>
+                        <h1>Info</h1>
+                    </Content>
                 </Layout>
             </Layout>
+            </Flex>
         </div>
     )
 }
