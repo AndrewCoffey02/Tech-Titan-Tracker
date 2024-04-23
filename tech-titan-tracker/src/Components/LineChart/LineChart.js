@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import "./App.css";
+import './LineChart.css'
 import {
   select,
   line,
@@ -18,24 +18,24 @@ function App() {
     const svg = select(svgRef.current);
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
-      .range([0, 300]);
+      .range([0, 600]);
 
     const yScale = scaleLinear()
       .domain([0, 150])
-      .range([150, 0]);
+      .range([200, 0]);
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
       .tickFormat(index => index + 1);
     svg
       .select(".x-axis")
-      .style("transform", "translateY(150px)")
+      .style("transform", "translateY(200px)")
       .call(xAxis);
 
     const yAxis = axisRight(yScale);
     svg
       .select(".y-axis")
-      .style("transform", "translateX(300px)")
+      .style("transform", "translateX(600px)")
       .call(yAxis);
 
     // generates the "d" attribute of a path element
@@ -62,16 +62,6 @@ function App() {
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-      <br />
-      <br />
-      <br />
-      <br />
-      <button onClick={() => setData(data.map(value => value + 5))}>
-        Update data
-      </button>
-      <button onClick={() => setData(data.filter(value => value < 35))}>
-        Filter data
-      </button>
     </React.Fragment>
   );
 }
