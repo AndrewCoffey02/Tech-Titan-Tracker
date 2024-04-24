@@ -8,9 +8,14 @@ const {  Sider, Header, Content } = Layout
 const boxStyle = {
     width: '100%',
     height: '30%',
-    borderRadius: 30,
-    border: '3px solid #86d1ae',
-    backgroundColor: '#311152'
+    borderRadius: 2,
+    border: '5px solid #54c47a',
+    backgroundColor: '#222438',
+    overflow: "visible",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
   };
 
 export default function Dashboard() {
@@ -31,13 +36,12 @@ export default function Dashboard() {
                     </Content>
                 </Sider>
                 <Layout>
-                    <Content align="center" style={boxStyle}>
+                    <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: '#222438'}}>
                         <LineChart/>
                     </Content>
-                    <Content align="center" style={boxStyle}>
-                        <h1>BarChart</h1>
+                    <Content style={boxStyle}>
                     </Content>
-                    <Content align="center" style={boxStyle}>
+                    <Content style={boxStyle}>
                         <h1>Info</h1>
                     </Content>
                 </Layout>

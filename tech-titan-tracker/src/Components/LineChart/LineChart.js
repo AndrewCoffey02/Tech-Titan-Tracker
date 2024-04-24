@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react"
 import './LineChart.css'
 import {
   select,
@@ -7,54 +7,63 @@ import {
   axisBottom,
   axisRight,
   scaleLinear
-} from "d3";
+} from "d3"
 
 function App() {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75]);
-  const svgRef = useRef();
+  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75])
+  const svgRef = useRef()
 
   // will be called initially and on every data change
   useEffect(() => {
-    const svg = select(svgRef.current);
+    // set the dimensions and margins of the graph
+    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+      width = 1000 - margin.left - margin.right,
+      height = 300 - margin.top - margin.bottom
+
+    const svg = select(svgRef.current)
+    
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
-      .range([0, 600]);
+      .range([ 0 , width - 10])
 
     const yScale = scaleLinear()
       .domain([0, 150])
-      .range([200, 0]);
+      .range([height - 10, 0])
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
-      .tickFormat(index => index + 1);
-    svg
-      .select(".x-axis")
-      .style("transform", "translateY(200px)")
-      .call(xAxis);
+      .tickFormat(index => index + 1)
 
-    const yAxis = axisRight(yScale);
-    svg
-      .select(".y-axis")
-      .style("transform", "translateX(600px)")
-      .call(yAxis);
+    svg.select(".x-axis")
+      .style("transform", "translateY("+ height +"px)")
+      .call(xAxis)
+
+    const yAxis = axisRight(yScale)
+
+    svg.select(".y-axis")
+      .style("transform", "translateX(" + width + "px)")
+      .call(yAxis)
 
     // generates the "d" attribute of a path element
     const myLine = line()
       .x((value, index) => xScale(index))
       .y(yScale)
-      .curve(curveCardinal);
+      .curve(curveCardinal)
 
     // renders path element, and attaches
     // the "d" attribute from line generator above
-    svg
-      .selectAll(".line")
+    svg.selectAll(".line")
       .data([data])
       .join("path")
       .attr("class", "line")
       .attr("d", myLine)
       .attr("fill", "none")
-      .attr("stroke", "blue");
-  }, [data]);
+      .attr("stroke", "#54c47a")
+
+     
+  }, [data])
+
+  window.addEventListener('resize', svgRef)
 
   return (
     <React.Fragment>
@@ -66,4 +75,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
