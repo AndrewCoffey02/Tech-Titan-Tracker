@@ -1,0 +1,112 @@
+[
+    {
+        "EBITDA": 125820000000,
+        "currency": "USD",
+        "earnings_per_share": 6.13,
+        "effective_task_rate_percent": 14.72,
+        "net_income": 96995000000,
+        "net_profit_margin": 25.31,
+        "operating_expense": 54847000000,
+        "revenue": 383285000000,
+        "year": 2023
+    },
+    {
+        "EBITDA": 130541000000,
+        "currency": "USD",
+        "earnings_per_share": 6.11,
+        "effective_task_rate_percent": 16.2,
+        "net_income": 99803000000,
+        "net_profit_margin": 25.31,
+        "operating_expense": 51345000000,
+        "revenue": 394328000000,
+        "year": 2022
+    },
+    {
+        "EBITDA": 120233000000,
+        "currency": "USD",
+        "earnings_per_share": 5.61,
+        "effective_task_rate_percent": 13.3,
+        "net_income": 94680000000,
+        "net_profit_margin": 25.88,
+        "operating_expense": 43887000000,
+        "revenue": 365817000000,
+        "year": 2021
+    },
+    {
+        "EBITDA": 77344000000,
+        "currency": "USD",
+        "earnings_per_share": 3.28,
+        "effective_task_rate_percent": 14.43,
+        "net_income": 57411000000,
+        "net_profit_margin": 20.91,
+        "operating_expense": 38668000000,
+        "revenue": 274515000000,
+        "year": 2020
+    },
+    {
+        "EBITDA": 76477000000,
+        "currency": "USD",
+        "earnings_per_share": 2.97,
+        "effective_task_rate_percent": 15.94,
+        "net_income": 55256000000,
+        "net_profit_margin": 21.24,
+        "operating_expense": 34462000000,
+        "revenue": 260174000000,
+        "year": 2019
+    },
+    {
+        "EBITDA": 81801000000,
+        "currency": "USD",
+        "earnings_per_share": 2.98,
+        "effective_task_rate_percent": 18.34,
+        "net_income": 59531000000,
+        "net_profit_margin": 22.41,
+        "operating_expense": 30941000000,
+        "revenue": 265595000000,
+        "year": 2018
+    },
+    {
+        "EBITDA": 71501000000,
+        "currency": "USD",
+        "earnings_per_share": 2.3,
+        "effective_task_rate_percent": 24.56,
+        "net_income": 48351000000,
+        "net_profit_margin": 21.09,
+        "operating_expense": 26842000000,
+        "revenue": 229234000000,
+        "year": 2017
+    },
+    {
+        "EBITDA": 70529000000,
+        "currency": "USD",
+        "earnings_per_share": 2.08,
+        "effective_task_rate_percent": 25.56,
+        "net_income": 45687000000,
+        "net_profit_margin": 21.19,
+        "operating_expense": 24239000000,
+        "revenue": 215639000000,
+        "year": 2016
+    },
+    {
+        "EBITDA": 82487000000,
+        "currency": "USD",
+        "earnings_per_share": 2.31,
+        "effective_task_rate_percent": 26.37,
+        "net_income": 53394000000,
+        "net_profit_margin": 22.85,
+        "operating_expense": 22396000000,
+        "revenue": 233715000000,
+        "year": 2015
+    },
+    {
+        "EBITDA": 60449000000,
+        "currency": "USD",
+        "earnings_per_share": 1.61,
+        "effective_task_rate_percent": 26.13,
+        "net_income": 39510000000,
+        "net_profit_margin": 21.61,
+        "operating_expense": 18034000000,
+        "revenue": 182795000000,
+        "year": 2014
+    }
+]
