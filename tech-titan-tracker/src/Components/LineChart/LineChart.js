@@ -6,33 +6,36 @@ import {
   curveCardinal,
   axisBottom,
   axisRight,
-  scaleLinear
+  scaleLinear,
+  min,
+  max
 } from "d3"
 
-function App() {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75])
+export default function LineChart({data}) {
   const svgRef = useRef()
 
   // will be called initially and on every data change
   useEffect(() => {
     // set the dimensions and margins of the graph
     var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-      width = 1000 - margin.left - margin.right,
+      width = 1400 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom
 
     const svg = select(svgRef.current)
+
+    const minYear = min(data, year => year.year)
+    const maxYear = max(data, year => year.year)
     
     const xScale = scaleLinear()
-      .domain([0, data.length - 1])
-      .range([ 0 , width - 10])
+      .domain([minYear, maxYear])
+      .range([ 100 , width])
 
     const yScale = scaleLinear()
-      .domain([0, 150])
-      .range([height - 10, 0])
+      .domain([0, max(data, rev => rev.revenue)])
+      .range([height, 10])
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
-      .tickFormat(index => index + 1)
 
     svg.select(".x-axis")
       .style("transform", "translateY("+ height +"px)")
@@ -53,7 +56,7 @@ function App() {
     // renders path element, and attaches
     // the "d" attribute from line generator above
     svg.selectAll(".line")
-      .data([data])
+      .data(data)
       .join("path")
       .attr("class", "line")
       .attr("d", myLine)
@@ -63,8 +66,6 @@ function App() {
      
   }, [data])
 
-  window.addEventListener('resize', svgRef)
-
   return (
     <React.Fragment>
       <svg ref={svgRef}>
@@ -72,7 +73,5 @@ function App() {
         <g className="y-axis" />
       </svg>
     </React.Fragment>
-  );
+  )
 }
-
-export default App

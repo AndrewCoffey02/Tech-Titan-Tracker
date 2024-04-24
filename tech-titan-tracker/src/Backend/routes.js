@@ -28,7 +28,7 @@ const endPointKey = ({
   url: `https://real-time-finance-data.p.rapidapi.com/company-income-statement`,
   params: {
     symbol: `AAPL:NASDAQ`,
-    period: 'QUARTERLY'
+    period: 'ANNUAL'
   },
   headers: {
     'X-RapidAPI-Key': '6612968778mshdc7b0e1fe333d44p147994jsne94ba23b6238',
@@ -64,7 +64,7 @@ const sendRequestKey = async (res) => {
 
 app.get("/api", async (req, res) => {
 
-  sendRequestKey(res)
+  await sendRequestKey(res)
 })
 
 app.listen(port, () => {
