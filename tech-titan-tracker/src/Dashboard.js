@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
+//import components
 import LineChart from './Components/LineChart/LineView'
 import BarChart from './Components/BarChart/BarView'
 import DropDown from './Components/Options/options'
-import { Dropdown, Layout } from 'antd'
+import { Layout } from 'antd'
 import { Flex } from 'antd'
-// import { BrowserRouter, Routes, Route} from 'react-router-dom' 
 
+// call Layout components
 const {  Sider, Header, Content } = Layout
 
+// assign css format of boxes
 const boxStyle = {
     width: '100%',
     height: '30%',
@@ -24,14 +26,15 @@ const boxStyle = {
   };
 
 export default function Dashboard() {
-
+    //store dropdown choices 
     const [selected, setSelected] = useState('')
 
+    //handle dropdown data change
     const handleSelectChange = async (event) => {
         await setSelected(event)
     }
 
-
+    //return format
     return (
         <div>
             <Flex>

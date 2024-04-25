@@ -1,11 +1,16 @@
-//importing tools
+//THIS FILE IS NOT USED IN THIS APPLICATION
+
+// This file is used for practice of redis caching and how I have used a redis database
+// to store API endpoints and return the data to the front-end.
+
+// Importing tools
 import axios from 'axios'
 import { Redis } from 'ioredis'
 
-//redis database from upstash
+// redis database from upstash
 const redis = new Redis("rediss://default:9105239db83042b1b00a4d3d6f8011e5@eu1-becoming-kite-39003.upstash.io:39003");
 
-//call the apikey with authorisation
+// call the apikey with authorisation
 const endPointKey = (Search, type) => ({
   //maybe make the endpoint options (income statement) a template literal??
   url: `https://real-time-finance-data.p.rapidapi.com/${type}`,
@@ -19,30 +24,30 @@ const endPointKey = (Search, type) => ({
   }
 });
 
-//get location with longitude and latitude
+// get location with longitude and latitude
 const findRequestKey = async (Search, type) => {
 
     let cacheEntry = await redis.get(`${Search}`) 
     
-    //if we have a cache hit, it will select the key
+    // if we have a cache hit, it will select the key
     if(cacheEntry) {
         //parse the string object to JSON format
         cacheEntry = JSON.parse(cacheEntry)
 
-        //return that entry
+        // return that entry
         return ({...cacheEntry, 'source' : 'cache'})
     }
 
-    //if we have a miss
+    // if we have a miss
     // call response with axios
     let response = await axios.request(endPointKey(Search, type))
     redis.set(`${Search}`, JSON.stringify(response.data))
-    //return response
+    // return response
     return ({...response.data, 'source' : 'API' })
 
 }
 
-//parameters
+// parameters
 const Search = 'AAPL'
 const type = 'company-income-statement'
 //time and call the method 
@@ -54,5 +59,5 @@ console.log(response)
 
 export default response
 
-//exit when implemented
+// exit when implemented
 process.exit()

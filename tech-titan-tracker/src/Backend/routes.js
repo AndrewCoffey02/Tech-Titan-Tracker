@@ -35,7 +35,7 @@ const RedisClient = redis.createClient({
 // Connect to redis server platform
 RedisClient.connect()
 
-// Request for each company stock code
+// Get request for each company stock code
 app.get(`/api/AMZN`, async (req, res) => { 
   
   Search = 'AMZN' // AMAZON
@@ -105,7 +105,7 @@ const sendRequestKey = async (res) => {
   }
 }
 
-
+// App listening to assigned port
 app.listen(port, () => {
   console.log(`App listening to port ${port}`)
 })

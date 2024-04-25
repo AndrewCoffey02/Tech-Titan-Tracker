@@ -1,5 +1,9 @@
+/* svg elements */
 svg {
-    overflow: visible;
-    margin-bottom: 2rem;
-    display: block;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   }

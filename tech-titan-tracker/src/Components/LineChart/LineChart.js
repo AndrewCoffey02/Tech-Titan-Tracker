@@ -22,30 +22,35 @@ export default function LineChart({data}) {
       width = 1400 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom
     
+    // create svg element
     const svg = select(svgRef.current)
+    //reset line
     svg.selectAll("path").remove()
 
+    // assign min amd max number of year
     const minYear = min(data, year => year.year)
     const maxYear = max(data, year => year.year)
     
+    // declare x-axis as linear scale
     const xScale = scaleLinear()
       .domain([minYear, maxYear])
       .range([ 100 , width])
 
+    // declare y-axis as linear scale
     const yScale = scaleLinear()
       .domain([0, max(data, rev => rev.revenue)])
       .range([height, 10])
-
+    
+      // create x-axis
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
-      .tickFormat(index => index)
-
+      .tickFormat(index => index) // format each year
     svg.select(".x-axis")
       .style("transform", "translateY("+ height +"px)")
       .call(xAxis)
 
+      // create y-axis 
     const yAxis = axisRight(yScale).tickFormat(index => index / 1000000000 + "b")
-
     svg.select(".y-axis")
       .style("transform", "translateX(" + width + "px)")
       .call(yAxis)
@@ -68,6 +73,7 @@ export default function LineChart({data}) {
 
   }, [data])
 
+  // return svg elements
   return (
     <React.Fragment>
       <div>
