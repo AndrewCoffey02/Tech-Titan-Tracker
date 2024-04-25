@@ -7,6 +7,7 @@ import {
   axisBottom,
   axisRight,
   scaleLinear,
+  scaleTime,
   min,
   max
 } from "d3"
@@ -20,7 +21,7 @@ export default function LineChart({data}) {
     var margin = { top: 10, right: 30, bottom: 30, left: 60 },
       width = 1400 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom
-
+    
     const svg = select(svgRef.current)
 
     const minYear = min(data, year => year.year)
@@ -36,12 +37,13 @@ export default function LineChart({data}) {
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
+      .tickFormat(index => index)
 
     svg.select(".x-axis")
       .style("transform", "translateY("+ height +"px)")
       .call(xAxis)
 
-    const yAxis = axisRight(yScale)
+    const yAxis = axisRight(yScale).tickFormat(index => index / 1000000000 + "b")
 
     svg.select(".y-axis")
       .style("transform", "translateX(" + width + "px)")
@@ -49,21 +51,20 @@ export default function LineChart({data}) {
 
     // generates the "d" attribute of a path element
     const myLine = line()
-      .x((value, index) => xScale(index))
-      .y(yScale)
+      .x(d => xScale(d.year))
+      .y(d => yScale(d.revenue))
       .curve(curveCardinal)
 
     // renders path element, and attaches
     // the "d" attribute from line generator above
-    svg.selectAll(".line")
-      .data(data)
-      .join("path")
-      .attr("class", "line")
-      .attr("d", myLine)
+    svg.append("path")
+      .datum(data)
       .attr("fill", "none")
       .attr("stroke", "#54c47a")
+      .attr("stroke-width", 3)
+      .attr("d", myLine)
+      
 
-     
   }, [data])
 
   return (

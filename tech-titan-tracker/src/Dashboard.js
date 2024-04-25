@@ -14,7 +14,7 @@ const boxStyle = {
     height: '30%',
     borderRadius: 2,
     border: '5px solid #54c47a',
-    backgroundColor: '#222438',
+    backgroundColor: 'grey',
     overflow: "visible",
     display: "flex",
     flexDirection: "column",
@@ -40,10 +40,10 @@ export default function Dashboard() {
                         </Content>
                     </Sider>
                     <Layout>
-                        <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: '#222438'}}>
+                        <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: 'grey'}}>
                             <LineChart/>
                         </Content>
-                        <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: '#222438'}}>
+                        <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: 'grey'}}>
                             <BarChart/>
                         </Content>
                         <Content style={boxStyle}>

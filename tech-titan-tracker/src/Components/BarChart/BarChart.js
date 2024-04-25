@@ -10,6 +10,11 @@ import { select,
 } from "d3"
 
 export default  function BarChart({data}) {
+  // set the dimensions and margins of the graph
+  var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+  width = 1400 - margin.left - margin.right,
+  height = 300 - margin.top - margin.bottom
+
   const svgRef = useRef()
 
   const minYear = min(data, year => year.year)
@@ -21,24 +26,24 @@ export default  function BarChart({data}) {
 
     const xScale = scaleBand()
       .domain(data.map( (value, index) => index))
-      .range([100, 1400])
+      .range([100, width])
       .padding(0.5)
 
     const yScale = scaleLinear()
       .domain([0, max(data, rev => rev.revenue)])
-      .range([200, 10]) 
+      .range([height, 10])
 
     const xAxis = axisBottom(xScale).ticks(data.length)
 
     svg
       .select(".x-axis")
-      .style("transform", "translateY(200px)")
+      .style("transform", "translateY("+height+"px)")
       .call(xAxis)
 
     const yAxis = axisRight(yScale)
     svg
       .select(".y-axis")
-      .style("transform", "translateX(1400px)")
+      .style("transform", "translateX(" + width + "px)")
       .call(yAxis)
 
     svg

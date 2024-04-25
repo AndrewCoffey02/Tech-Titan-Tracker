@@ -21,6 +21,7 @@ const RedisClient = redis.createClient({
   url: "rediss://default:9105239db83042b1b00a4d3d6f8011e5@eu1-becoming-kite-39003.upstash.io:39003"
 
 })
+//connect to redis server platform
 RedisClient.connect()
 
 const endPointKey = ({
@@ -50,7 +51,6 @@ const sendRequestKey = async (res) => {
       return res.json(cacheEntry)
     }
 
-
     //if we have a miss
     let response = await axios.request(endPointKey)
     RedisClient.set(`${Search}`, JSON.stringify(response.data))
@@ -64,7 +64,7 @@ const sendRequestKey = async (res) => {
 
 app.get("/api", async (req, res) => {
 
-  await sendRequestKey(res)
+  let response = await sendRequestKey(res)
 })
 
 app.listen(port, () => {
