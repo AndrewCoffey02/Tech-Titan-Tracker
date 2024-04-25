@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import LineChart from './Components/LineChart/LineView'
 import BarChart from './Components/BarChart/BarView'
-import { Layout } from 'antd'
+import DropDown from './Components/Options/options'
+import { Dropdown, Layout } from 'antd'
 import { Flex } from 'antd'
 // import { BrowserRouter, Routes, Route} from 'react-router-dom' 
 
@@ -24,6 +25,13 @@ const boxStyle = {
 
 export default function Dashboard() {
 
+    const [selected, setSelected] = useState('')
+
+    const handleSelectChange = async (event) => {
+        await setSelected(event)
+    }
+
+
     return (
         <div>
             <Flex>
@@ -36,15 +44,15 @@ export default function Dashboard() {
                             <h1>PieChart</h1>
                         </Content>
                         <Content align="center" style={boxStyle}>
-                            <h1>Options</h1>
+                            <DropDown selected={selected} onSelectChange={handleSelectChange}/>
                         </Content>
                     </Sider>
                     <Layout>
                         <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: 'grey'}}>
-                            <LineChart/>
+                            <LineChart option={selected}/>
                         </Content>
                         <Content style={ {width: '100%',height: '30%',borderRadius: 2,border: '5px solid #54c47a', backgroundColor: 'grey'}}>
-                            <BarChart/>
+                            <BarChart option={selected}/>
                         </Content>
                         <Content style={boxStyle}>
                             <h1>Info</h1>
