@@ -18,11 +18,12 @@ export default function LineChart({data}) {
   // will be called initially and on every data change
   useEffect(() => {
     // set the dimensions and margins of the graph
-    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+    var margin = { top: 20, right: 30, bottom: 30, left: 60 },
       width = 1400 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom
     
     const svg = select(svgRef.current)
+    svg.selectAll("path").remove()
 
     const minYear = min(data, year => year.year)
     const maxYear = max(data, year => year.year)
@@ -69,10 +70,12 @@ export default function LineChart({data}) {
 
   return (
     <React.Fragment>
-      <svg ref={svgRef}>
-        <g className="x-axis" />
-        <g className="y-axis" />
-      </svg>
+      <div>
+        <svg ref={svgRef}>
+          <g className="x-axis" />
+          <g className="y-axis" />
+        </svg>
+      </div>
     </React.Fragment>
   )
 }

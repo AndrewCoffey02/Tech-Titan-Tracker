@@ -1,20 +1,29 @@
 const express = require('express')
 const redis = require('redis')
+const rateLimit = require('express-rate-limit')
 const axios = require('axios')
 const app = express()
 const port = 4000
-const Search = 'AAPL'
+let Search = ''
+
+//limits the amount of api calls
+const limiter = rateLimit({
+  windowMs: 2 * 1000, // limit every 15 seconds
+  max: 5 //limit each ip to 100 requests 
+})
+
+app.use(limiter)
 
 //add Cors to the server
-const cors = require('cors');
+const cors = require('cors')
 app.use(cors());
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
   res.header("Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+    "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
 
 //redis client database
 const RedisClient = redis.createClient({
@@ -28,19 +37,21 @@ const endPointKey = ({
   //maybe make the endpoint options (income statement) a template literal??
   url: `https://real-time-finance-data.p.rapidapi.com/company-income-statement`,
   params: {
-    symbol: `AAPL:NASDAQ`,
+    symbol: `${Search}:NASDAQ`,
     period: 'ANNUAL'
   },
   headers: {
     'X-RapidAPI-Key': '6612968778mshdc7b0e1fe333d44p147994jsne94ba23b6238',
     'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com'
   }
-});
+})
+
+
 
 const sendRequestKey = async (res) => {
 
   try {
-    let cacheEntry = await RedisClient.get(`${Search}`)
+    let cacheEntry = await RedisClient.get(`${Search}`) 
 
     //if we have a cache hit, it will select the key
     if (cacheEntry) {
@@ -62,9 +73,34 @@ const sendRequestKey = async (res) => {
   }
 }
 
-app.get("/api", async (req, res) => {
+app.get(`/api/AMZN`, async (req, res) => {
+  
+  Search = 'AMZN'
+  await sendRequestKey(res)
+})
 
-  let response = await sendRequestKey(res)
+app.get(`/api/MSFT`, async (req, res) => {
+  
+  Search = 'MSFT'
+  await sendRequestKey(res)
+})
+
+app.get(`/api/GOOGL`, async (req, res) => {
+  
+  Search = 'GOOGL'
+  await sendRequestKey(res)
+})
+
+app.get(`/api/META`, async (req, res) => {
+  
+  Search = 'META'
+  await sendRequestKey(res)
+})
+
+app.get(`/api/AAPL`, async (req, res) => {
+  
+  Search = 'AAPL'
+  await sendRequestKey(res)
 })
 
 app.listen(port, () => {
