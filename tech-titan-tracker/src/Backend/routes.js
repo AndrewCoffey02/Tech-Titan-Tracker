@@ -1,20 +1,22 @@
+// Imports 
 const express = require('express')
 const redis = require('redis')
 const rateLimit = require('express-rate-limit')
 const axios = require('axios')
 const app = express()
 const port = 4000
-let Search = ''
+var Search = ''
 
-//limits the amount of api calls
+// Limits the amount of api calls
 const limiter = rateLimit({
   windowMs: 2 * 1000, // limit every 15 seconds
-  max: 5 //limit each ip to 100 requests 
+  max: 10 // limit each ip to 100 requests 
 })
 
+// Declare rate limit
 app.use(limiter)
 
-//add Cors to the server
+// Add Cors to the server
 const cors = require('cors')
 app.use(cors());
 app.use(function (req, res, next) {
@@ -25,16 +27,47 @@ app.use(function (req, res, next) {
   next()
 })
 
-//redis client database
+// Redis client database
 const RedisClient = redis.createClient({
   url: "rediss://default:9105239db83042b1b00a4d3d6f8011e5@eu1-becoming-kite-39003.upstash.io:39003"
 
 })
-//connect to redis server platform
+// Connect to redis server platform
 RedisClient.connect()
 
-const endPointKey = ({
-  //maybe make the endpoint options (income statement) a template literal??
+// Request for each company stock code
+app.get(`/api/AMZN`, async (req, res) => { 
+  
+  Search = 'AMZN' // AMAZON
+  await sendRequestKey(res)
+})
+
+app.get(`/api/MSFT`, async (req, res) => {
+  
+  Search = 'MSFT' // MICROSOFT
+  await sendRequestKey(res)
+})
+
+app.get(`/api/GOOGL`, async (req, res) => {
+  
+  Search = 'GOOGL' // GOOGLE
+  await sendRequestKey(res)
+})
+
+app.get(`/api/META`, async (req, res) => {
+  
+  Search = 'META' // META
+  await sendRequestKey(res)
+})
+
+app.get(`/api/AAPL`, async (req, res) => {
+  
+  Search = 'AAPL' //APPLE
+  await sendRequestKey(res)
+})
+
+// Api request url and parameters
+const endPointKey = (Search) => ({
   url: `https://real-time-finance-data.p.rapidapi.com/company-income-statement`,
   params: {
     symbol: `${Search}:NASDAQ`,
@@ -46,26 +79,25 @@ const endPointKey = ({
   }
 })
 
-
-
+// Method to request api with redis caching
 const sendRequestKey = async (res) => {
 
   try {
     let cacheEntry = await RedisClient.get(`${Search}`) 
 
-    //if we have a cache hit, it will select the key
+    // If we have a cache hit, it will select the key
     if (cacheEntry) {
       //parse the string object to JSON format
       cacheEntry = JSON.parse(cacheEntry)
 
-      //return that entry
+      // Return that entry
       return res.json(cacheEntry)
     }
 
-    //if we have a miss
-    let response = await axios.request(endPointKey)
+    // If we have a cache miss, request using axios
+    let response = await axios.request(endPointKey(Search))
     RedisClient.set(`${Search}`, JSON.stringify(response.data))
-    //return response
+    // Return response
     return res.json(endPointKey)
   }
   catch (error) {
@@ -73,35 +105,6 @@ const sendRequestKey = async (res) => {
   }
 }
 
-app.get(`/api/AMZN`, async (req, res) => {
-  
-  Search = 'AMZN'
-  await sendRequestKey(res)
-})
-
-app.get(`/api/MSFT`, async (req, res) => {
-  
-  Search = 'MSFT'
-  await sendRequestKey(res)
-})
-
-app.get(`/api/GOOGL`, async (req, res) => {
-  
-  Search = 'GOOGL'
-  await sendRequestKey(res)
-})
-
-app.get(`/api/META`, async (req, res) => {
-  
-  Search = 'META'
-  await sendRequestKey(res)
-})
-
-app.get(`/api/AAPL`, async (req, res) => {
-  
-  Search = 'AAPL'
-  await sendRequestKey(res)
-})
 
 app.listen(port, () => {
   console.log(`App listening to port ${port}`)
