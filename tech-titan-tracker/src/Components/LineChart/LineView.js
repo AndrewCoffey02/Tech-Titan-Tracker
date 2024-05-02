@@ -1,7 +1,6 @@
 // imports 
 import React, { useState, useEffect } from 'react'
 import LineChart from './LineChart'
-import dataa from './data.json'
 import axios from 'axios'
 
 export default function Linechart({ option }) {

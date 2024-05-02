@@ -20,10 +20,6 @@ export default function BarChart({ data }) {
         width = 1400 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom
 
-    // set the minimum and maximum number of the year parameter used
-    const minYear = min(data, year => year.year)
-    const maxYear = max(data, year => year.year)
-
     const svg = select(svgRef.current)
     svg.selectAll("*").remove()
 

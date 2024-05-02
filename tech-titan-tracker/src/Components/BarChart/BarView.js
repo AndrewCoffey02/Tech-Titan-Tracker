@@ -1,7 +1,6 @@
 //imports
 import React, {useState, useEffect } from 'react'
 import BarChart from './BarChart'
-import data from './data.json'
 import axios from 'axios'
 
 export default function Data({option}) {
